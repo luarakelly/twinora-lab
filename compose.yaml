@@ -1,0 +1,18 @@
+# Run Twinora Lab with Docker Compose:
+#
+#   docker compose up                    (in the public repo; here: docker compose -f public/compose.yaml up)
+#   then open http://localhost:8000
+#
+# Uses the published image by default. To run an image you built locally, set TWINORA_IMAGE=twinora-lab.
+
+services:
+  lab:
+    image: ${TWINORA_IMAGE:-ghcr.io/luarakelly/twinora-lab:latest}
+    ports:
+      - "8000:8000"
+    volumes:
+      - twinora-data:/data # database and uploads survive restarts and image updates
+    restart: unless-stopped
+
+volumes:
+  twinora-data:
